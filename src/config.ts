@@ -5,8 +5,6 @@ import path = require('path');
 
 const env: string = process.env.NODE_ENV = process.env.NODE_ENV || 'loc';
 
-console.log(`${__dirname}/config/env/${env}.json`);
-
 nconf
 	.argv()
 	.env()
