@@ -7,7 +7,7 @@
     "test": "echo \"gulp test\" && exit 1"
   },
   "author": "",
-  "license": "ISC",
+  "license": "GPLv2",
   "devDependencies": {
     "chai": "^3.4.0",
     "gulp": "^3.9.0",
