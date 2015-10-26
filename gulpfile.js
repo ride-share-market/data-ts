@@ -69,9 +69,13 @@ gulp.task('copy-config', () => {
     .pipe(gulp.dest('./dist/conf'));
 });
 
-gulp.task('log-dir', () => {
+gulp.task('log-dir', (cb) => {
   if (!fs.existsSync(info.logDir)) {
-    fs.mkdirSync(info.logDir);
+    exec(`mkdir -p ${info.logDir}`, (err, stdOut, stdErr) => {
+      console.log(stdOut);
+      console.log(stdErr);
+      cb(err);
+    });
   }
 });
 
