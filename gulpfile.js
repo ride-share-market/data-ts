@@ -1,10 +1,15 @@
 'use strict';
 
-var gulp = require('gulp'),
+let gulp = require('gulp'),
   taskListing = require('gulp-task-listing'),
   rimraf = require('rimraf'),
   exec = require('child_process').exec,
-  tslint = require('gulp-tslint');
+  tslint = require('gulp-tslint'),
+  fs = require('fs'),
+  runSequence = require('run-sequence');
+
+let info = {};
+info.logDir = 'dist/log';
 
 gulp.task('default', taskListing);
 
@@ -12,14 +17,14 @@ gulp.task('clean', (cb) => {
   rimraf('./dist', cb);
 });
 
-gulp.task('compile', ['clean', 'tsc', 'copy'], () => {
+gulp.task('compile', ['clean', 'tsc', 'assets'], () => {
   console.log('Clean and Compiled.')
 });
 
 gulp.task('watch-compile', () => {
   gulp.watch('src/**/*.ts', ['lint']);
   gulp.watch('src/**/*.ts', ['tsc']);
-  gulp.watch('src/config/**/*.json', ['copy']);
+  gulp.watch('src/conf/**/*.json', ['copy']);
 });
 
 gulp.task('watch-test', () => {
@@ -44,15 +49,30 @@ gulp.task('lint', () => {
     .pipe(tslint.report('verbose'));
 });
 
-gulp.task('copy', ['copy-config']);
+gulp.task('assets', (done) => {
+  runSequence(
+    'log-dir',
+    // run in parallel
+    [
+      'copy-config'
+    ],
+    done
+    )
+});
 
 gulp.task('copy-config', () => {
   return gulp.src([
-    'src/config/**/*.json',
-    '!src/config/env/example',
-    '!src/config/env/example/**'
+    'src/conf/**/*.json',
+    '!src/conf/env/example',
+    '!src/conf/env/example/**'
   ])
-    .pipe(gulp.dest('./dist/config'));
+    .pipe(gulp.dest('./dist/conf'));
+});
+
+gulp.task('log-dir', () => {
+  if (!fs.existsSync(info.logDir)) {
+    fs.mkdirSync(info.logDir);
+  }
 });
 
 gulp.task('test', (cb) => {

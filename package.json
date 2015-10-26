@@ -17,11 +17,14 @@
     "mocha": "^2.3.3",
     "require-walk": "^1.0.0",
     "rimraf": "^2.4.3",
+    "run-sequence": "^1.1.4",
     "tsc": "^1.20150623.0",
     "tsd": "^0.6.5",
     "typescript": "^1.6.2"
   },
   "dependencies": {
+    "amqp-rpc-factory": "^1.0.1",
+    "bunyan": "^1.5.1",
     "nconf": "^0.8.2"
   }
 }

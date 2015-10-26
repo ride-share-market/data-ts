@@ -49,6 +49,7 @@ declare module "nconf" {
 	}
 
 	export interface IOptions {
+		root?: string;
 		logDir?: string;
 	}
 
