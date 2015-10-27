@@ -1,16 +1,35 @@
 'use strict';
 
-// import path = require('path');
+import amqpRpcFactory = require('amqp-rpc-factory');
 
 import {config} from './conf/config';
 
-import * as log from './conf/log'
+import * as log from './conf/log';
 
-// console.log(config);
-console.log(config.get('root'));
-// console.log(config.get('database').mongodb.uri);
+import {greeting} from './lib/hello/world';
 
-let logger: any = log.create('mylog');
+let logger: any = log.create('app');
 
-logger.info('test message');
+let rpcConsumerFactory: ConsumerFactory = amqpRpcFactory.consumer;
 
+let rmq: any = config.get('messageQueue').rabbitmq;
+
+let rmqConn: string = `amqp://${rmq.user}:${rmq.password}@${rmq.url}/${rmq.vhost}`;
+
+let consumer: Consumer = rpcConsumerFactory.create({
+
+	url: rmqConn,
+
+	logInfo: function(msg: any): void {
+    logger.info(msg);
+  },
+
+  logError: function(msg: any): void {
+    logger.error(msg);
+  },
+
+	processMessage: greeting
+
+});
+
+consumer.run();

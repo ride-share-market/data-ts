@@ -4,13 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"gulp test\" && exit 1"
+    "test": "echo \"gulp test\" && exit 1",
+    "start": "./node_modules/.bin/pm2 start dist/conf/pm2_loc.json",
+    "stop": "./node_modules/.bin/pm2 delete app-rpc-consumer",
+    "list": "./node_modules/.bin/pm2 list"
   },
   "author": "",
   "license": "GPLv2",
   "devDependencies": {
     "chai": "^3.4.0",
     "gulp": "^3.9.0",
+    "gulp-folders": "^1.1.0",
     "gulp-task-listing": "^1.0.1",
     "gulp-tslint": "^3.4.0",
     "istanbul-harmony": "^0.3.16",
@@ -25,6 +29,7 @@
   "dependencies": {
     "amqp-rpc-factory": "^1.0.1",
     "bunyan": "^1.5.1",
-    "nconf": "^0.8.2"
+    "nconf": "^0.8.2",
+    "pm2": "^0.15.7"
   }
 }

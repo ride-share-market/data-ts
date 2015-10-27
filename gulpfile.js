@@ -10,6 +10,7 @@ let gulp = require('gulp'),
 
 let info = {};
 info.logDir = 'dist/log';
+info.pidsDir = 'dist/pids';
 
 gulp.task('default', taskListing);
 
@@ -51,16 +52,13 @@ gulp.task('lint', () => {
 
 gulp.task('assets', (done) => {
   runSequence(
-    'log-dir',
-    // run in parallel
-    [
-      'copy-config'
-    ],
+    'copy-env-config',
+    'copy-pm2-config',
     done
-    )
+    );
 });
 
-gulp.task('copy-config', () => {
+gulp.task('copy-env-config', () => {
   return gulp.src([
     'src/conf/**/*.json',
     '!src/conf/env/example',
@@ -69,14 +67,11 @@ gulp.task('copy-config', () => {
     .pipe(gulp.dest('./dist/conf'));
 });
 
-gulp.task('log-dir', (cb) => {
-  if (!fs.existsSync(info.logDir)) {
-    exec(`mkdir -p ${info.logDir}`, (err, stdOut, stdErr) => {
-      console.log(stdOut);
-      console.log(stdErr);
-      cb(err);
-    });
-  }
+gulp.task('copy-pm2-config', () => {
+  return gulp.src([
+    'src/conf/pm2.json'
+  ])
+    .pipe(gulp.dest('./dist/conf'));
 });
 
 gulp.task('test', (cb) => {
