@@ -53,6 +53,7 @@ gulp.task('lint', () => {
 gulp.task('assets', (done) => {
   runSequence(
     'copy-env-config',
+    'copy-zschemas',
     'copy-pm2-config',
     done
     );
@@ -65,6 +66,13 @@ gulp.task('copy-env-config', () => {
     '!src/conf/env/example/**'
   ])
     .pipe(gulp.dest('./dist/conf'));
+});
+
+gulp.task('copy-zschemas', () => {
+  return gulp.src([
+    'src/lib/zschema/schemas/*.json'
+  ])
+    .pipe(gulp.dest('./dist/lib/zschema/schemas'));
 });
 
 gulp.task('copy-pm2-config', () => {

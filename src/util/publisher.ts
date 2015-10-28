@@ -1,6 +1,7 @@
 import amqpRpcFactory = require('amqp-rpc-factory');
+import uuid = require('uuid');
 
-import {config} from './../../conf/config';
+import {config} from './../conf/config';
 
 let rmq: any = config.get('messageQueue').rabbitmq;
 
@@ -13,6 +14,16 @@ let publisher: Publisher = rpcPublisherFactory.create({
 	url: rmqConn
 });
 
-publisher.publish('World').then((res: any): any => {
+let jsonRpcMessage: string = JSON.stringify({
+  jsonrpc: '2.0',
+  method: 'hello.world',
+  params: {
+    name: 'Alice2'
+  },
+  id: uuid.v4()
+});
+
+publisher.publish(jsonRpcMessage).then((res: any): any => {
 	console.log(res);
 });
+

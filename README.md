@@ -44,6 +44,12 @@ Watch for compiled *.js file changes and run tests
 	npm run stop
 	npm run list
 
+## Test application
+
+Start the RPC app manually or with PM2 then issue the command:
+
+	node dist/util/publisher.js
+
 ## Typescript Definitions
 
 **Search examples**

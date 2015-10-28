@@ -14,7 +14,6 @@
   "devDependencies": {
     "chai": "^3.4.0",
     "gulp": "^3.9.0",
-    "gulp-folders": "^1.1.0",
     "gulp-task-listing": "^1.0.1",
     "gulp-tslint": "^3.4.0",
     "istanbul-harmony": "^0.3.16",
@@ -24,12 +23,15 @@
     "run-sequence": "^1.1.4",
     "tsc": "^1.20150623.0",
     "tsd": "^0.6.5",
-    "typescript": "^1.6.2"
+    "typescript": "^1.6.2",
+    "uuid": "^2.0.1"
   },
   "dependencies": {
     "amqp-rpc-factory": "^1.0.1",
     "bunyan": "^1.5.1",
     "nconf": "^0.8.2",
-    "pm2": "^0.15.7"
+    "pm2": "^0.15.7",
+    "q": "^1.4.1",
+    "z-schema": "^3.15.4"
   }
 }

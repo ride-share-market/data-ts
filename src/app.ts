@@ -6,7 +6,7 @@ import {config} from './conf/config';
 
 import * as log from './conf/log';
 
-import {greeting} from './lib/hello/world';
+import {greeting} from './lib/rpc/hello/world';
 
 let logger: any = log.create('app');
 
@@ -33,3 +33,4 @@ let consumer: Consumer = rpcConsumerFactory.create({
 });
 
 consumer.run();
+
